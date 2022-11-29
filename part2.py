@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import whyte_and_tailor
 import copy
+import math
 
 
 SAMPLE_TIME = 20
@@ -114,15 +115,23 @@ background_avg = get_average_background(background_data)
 sample_no_bg = subtract_from_list(sample_data, background_avg)
 counts_l = []
 trendline = []
+error_stddev = []
 for x in range(len(sample_no_bg[0])):
-    counts_l.append(whyte_and_tailor.counts(20*x))
+    counts_l.append(whyte_and_tailor.counts_bi212(20*x))
+    error_stddev.append(math.sqrt(sample_no_bg[1][x]))
     trendline.append(whyte_and_tailor.trendline(20*x/60))
+
 sample_no_fast = subtract_lists(sample_no_bg, trendline)
-plt.plot(sample_no_bg[0], sample_no_bg[1])
-plt.plot(sample_no_bg[0], counts_l)
-plt.plot(sample_no_bg[0], trendline)
+plt.errorbar(sample_no_bg[0], sample_no_bg[1], error_stddev, fmt='.', elinewidth=1)
+plt.plot(sample_no_bg[0], counts_l, 'r')
+plt.plot(sample_no_bg[0], trendline, 'g')
+plt.title("Decay model and experimental data")
+plt.legend(["Whyte and Taylor Model + Pb212","Exponential Fit",  "Counts with background Subtracted"])
+plt.xlabel("Sample Number (1 sample=20s)")
+plt.ylabel("Counts/Sample")
 plt.show()
 plt.plot(sample_no_fast[0], sample_no_fast[1])
+
 plt.show()
 
 sample_ignore_first_30 = remove_first_30(sample_no_bg)
