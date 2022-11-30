@@ -130,8 +130,23 @@ plt.legend(["Whyte and Taylor Model + Pb212","Exponential Fit",  "Counts with ba
 plt.xlabel("Sample Number (1 sample=20s)")
 plt.ylabel("Counts/Sample")
 plt.show()
-plt.plot(sample_no_fast[0], sample_no_fast[1])
-
+plt.plot(sample_no_bg[1], counts_l)
+counts_l = np.array(counts_l)
+sample = np.array(sample_no_bg[1])
+counts_l_2 = counts_l[:, np.newaxis]
+coef, _, _, _ = np.linalg.lstsq(counts_l_2, sample)
+print(coef)
+chi_squared = 0
+print(len(sample_no_bg[1]))
+for n in range(len(sample_no_bg[1])):
+    term = ((sample[n]-coef*counts_l[n])**2)/sample[n]
+   # print(term)
+    chi_squared += term
+print(chi_squared)
+print(chi_squared/341)
+plt.plot(counts_l, counts_l*coef)
+plt.xlim([0, 60])
+plt.ylim([0, 60])
 plt.show()
 
 sample_ignore_first_30 = remove_first_30(sample_no_bg)

@@ -3,7 +3,7 @@ import math
 Eb = 0.8
 Ec = 0.95
 ECB = Ec/Eb
-counts_t0 = 46  # technically not true but not sure what else to use
+counts_t0 = 44.6  # technically not true but not sure what else to use
 R = 1.43  # need to guess and check
 Ab_t0 = counts_t0/(1+ECB*R)
 
