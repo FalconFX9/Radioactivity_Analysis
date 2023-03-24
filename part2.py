@@ -132,8 +132,9 @@ plt.ylabel("Counts/Sample")
 plt.show()
 plt.plot(sample_no_bg[1], counts_l)
 counts_l = np.array(counts_l)
+trendline = np.array(trendline)
 sample = np.array(sample_no_bg[1])
-counts_l_2 = counts_l[:, np.newaxis]
+counts_l_2 = trendline[:, np.newaxis]
 coef, _, _, _ = np.linalg.lstsq(counts_l_2, sample)
 print(coef)
 chi_squared = 0
@@ -143,8 +144,10 @@ for n in range(len(sample_no_bg[1])):
    # print(term)
     chi_squared += term
 print(chi_squared)
-print(chi_squared/341)
+print(f"Reduced: {chi_squared/341}")
 plt.plot(counts_l, counts_l*coef)
+plt.xlabel("Trendline prediction counts")
+plt.ylabel("Collected Data counts")
 plt.xlim([0, 60])
 plt.ylim([0, 60])
 plt.show()

@@ -23,7 +23,7 @@ def bi212_exp(t):
 
 def pb212_exp(t):
     Pb212_t0 = 4
-    return Pb212_t0 * math.exp(-t/(10.6*3600))
+    return Pb212_t0 * math.exp(-t/(55053))
 
 
 def counts_bi212(t):
