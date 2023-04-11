@@ -9,7 +9,7 @@ def get_data(file):
     lfor = []
     lines = lines[2:]
     n = 0
-    for i in range(0, len(lines), 100):
+    for i in range(0, len(lines), 20):
         line = lines[i]
         n+=1
         separated_data = line.split(",")
@@ -20,7 +20,8 @@ def get_data(file):
     return [time, ufor, lfor]
 
 
-time, ufor, lfor = get_data("Artur\\high_effort.csv")
-print((time))
+time, ufor, lfor = get_data("Artur\\aim_test4.csv")
 plt.plot(time, ufor, time, lfor)
+plt.legend(["Forearm Flexors", "Wrist Flexors"])
+plt.title("Aim Test -- After 3 mins of recovery time")
 plt.show()
